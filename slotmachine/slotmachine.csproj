@@ -67,8 +67,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\app.css" />
+    <Content Include="css\main.css" />
     <Content Include="css\normalize.css" />
+    <Content Include="images\button100.png" />
+    <Content Include="images\button200.png" />
+    <Content Include="images\button300.png" />
+    <Content Include="images\button400.png" />
+    <Content Include="images\button500.png" />
+    <Content Include="images\handle.png" />
+    <Content Include="images\slotmachinebackground.jpg" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
@@ -82,11 +89,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="images\" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\app.ts" />
+    <TypeScriptCompile Include="Scripts\main.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\easeljs\easeljs.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
