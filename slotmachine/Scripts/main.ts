@@ -1,5 +1,21 @@
 ﻿var stage: createjs.Stage;
 var spinHandle: createjs.Bitmap;
+var button100: createjs.Bitmap;
+var button200: createjs.Bitmap;
+var button300: createjs.Bitmap;
+var button400: createjs.Bitmap;
+var button500: createjs.Bitmap;
+var powerButton: createjs.Bitmap;
+var seven: createjs.Bitmap;
+var bar: createjs.Bitmap;
+var grape: createjs.Bitmap;
+var banana: createjs.Bitmap;
+var orange: createjs.Bitmap;
+var cherry: createjs.Bitmap;
+var bell: createjs.Bitmap;
+var betText: createjs.Text;
+var moneyText: createjs.Text;
+var jackpotText: createjs.Text;
 
 var playerMoney = 1000;
 var winnings = 0;
@@ -36,14 +52,158 @@ function handleTick() {
 
 function drawSlotMachine() {
     var slotMachine = new createjs.Bitmap("images/slotmachinebackground.jpg");
+    var betBox = new createjs.Bitmap("images/textbox.png");
+    var moneyBox = new createjs.Bitmap("images/textbox.png");
+    var jackpotBox = new createjs.Bitmap("images/textbox.png");
+    var resetButton = new createjs.Bitmap("images/resetbutton.png");
+    powerButton = new createjs.Bitmap("images/powerbutton.png");
+    betText = new createjs.Text("$" + playerBet.toString(), "30px Arial", "#ffd900");
+    moneyText = new createjs.Text("$" + playerMoney.toString(), "30px Arial", "#ffd900");
+    jackpotText = new createjs.Text("$" + jackpot.toString(), "30px Arial", "#ffd900");
     spinHandle = new createjs.Bitmap("images/handle.png");
+    button100 = new createjs.Bitmap("images/button100.png");
+    button200 = new createjs.Bitmap("images/button200.png");
+    button300 = new createjs.Bitmap("images/button300.png");
+    button400 = new createjs.Bitmap("images/button400.png");
+    button500 = new createjs.Bitmap("images/button500.png");
     stage.enableMouseOver();
+
+    betBox.x = 300;
+    betBox.y = 367;
+
+    betText.x = 310;
+    betText.y = 367;
+
+    moneyBox.x = 34;
+    moneyBox.y = 182;
+
+    moneyText.x = 44;
+    moneyText.y = 182;
+
+    jackpotBox.x = 300;
+    jackpotBox.y = 182;
+
+    jackpotText.x = 310;
+    jackpotText.y = 182;
+
+    powerButton.x = 373;
+    powerButton.y = 85;
+
+    resetButton.x = 30;
+    resetButton.y = 85;
+
+    button100.x = 35;
+    button100.y = 367;
+
+    button200.x = 85;
+    button200.y = 367;
+
+    button300.x = 135;
+    button300.y = 367;
+
+    button400.x = 185;
+    button400.y = 367;
+
+    button500.x = 235;
+    button500.y = 367;
 
     spinHandle.x = 443;
     spinHandle.y = 62;
 
     stage.addChild(slotMachine);
     stage.addChild(spinHandle);
+    stage.addChild(betBox);
+    stage.addChild(betText);
+    stage.addChild(moneyBox);
+    stage.addChild(moneyText);
+    stage.addChild(jackpotBox);
+    stage.addChild(jackpotText);
+    stage.addChild(powerButton);
+    stage.addChild(resetButton);
+    stage.addChild(button100);
+    stage.addChild(button200);
+    stage.addChild(button300);
+    stage.addChild(button400);
+    stage.addChild(button500);
+
+    powerButton.addEventListener("click", function () {
+        if (confirm("Are you sure you want to quit?")) {
+            powerOff();
+        }
+    });
+    powerButton.addEventListener("mouseover", function () {
+        powerButton.alpha = 0.5;
+    });
+    powerButton.addEventListener("mouseout", function () {
+        powerButton.alpha = 1;
+    });
+
+    resetButton.addEventListener("click", function () {
+        if (confirm("Are you sure you want to reset?")) {
+            resetAll();
+        }
+    });
+    resetButton.addEventListener("mouseover", function () {
+        resetButton.alpha = 0.5;
+    });
+    resetButton.addEventListener("mouseout", function () {
+        resetButton.alpha = 1;
+    });
+
+    button100.addEventListener("click", function () {
+        playerBet = 100;
+        betText.text = "$100";
+    });
+    button100.addEventListener("mouseover", function () {
+        button100.alpha = 0.5;
+    });
+    button100.addEventListener("mouseout", function () {
+        button100.alpha = 1;
+    });
+
+    button200.addEventListener("click", function () {
+        playerBet = 200;
+        betText.text = "$200";
+    });
+    button200.addEventListener("mouseover", function () {
+        button200.alpha = 0.5;
+    });
+    button200.addEventListener("mouseout", function () {
+        button200.alpha = 1;
+    });
+
+    button300.addEventListener("click", function () {
+        playerBet = 300;
+        betText.text = "$300";
+    });
+    button300.addEventListener("mouseover", function () {
+        button300.alpha = 0.5;
+    });
+    button300.addEventListener("mouseout", function () {
+        button300.alpha = 1;
+    });
+
+    button400.addEventListener("click", function () {
+        playerBet = 400;
+        betText.text = "$400";
+    });
+    button400.addEventListener("mouseover", function () {
+        button400.alpha = 0.5;
+    });
+    button400.addEventListener("mouseout", function () {
+        button400.alpha = 1;
+    });
+
+    button500.addEventListener("click", function () {
+        playerBet = 500;
+        betText.text = "$500";
+    });
+    button500.addEventListener("mouseover", function () {
+        button500.alpha = 0.5;
+    });
+    button500.addEventListener("mouseout", function () {
+        button500.alpha = 1;
+    });
 
     spinHandle.addEventListener("click", spin);
     spinHandle.addEventListener("mouseover", overHandler);
@@ -59,9 +219,22 @@ function outHandler() {
     spinHandle.alpha = 1;
 }
 
-function spin() {
-    playerBet = $("div#betEntry>input").val();
+function powerOff() {
+    betText.text = "";
+    jackpotText.text = "";
+    moneyText.text = "";
 
+    powerButton.alpha = 1;
+    powerButton.removeAllEventListeners();
+    spinHandle.removeAllEventListeners();
+    button100.removeAllEventListeners();
+    button200.removeAllEventListeners();
+    button300.removeAllEventListeners();
+    button400.removeAllEventListeners();
+    button500.removeAllEventListeners();
+}
+
+function spin() {
     if (playerMoney == 0) {
         if (confirm("You ran out of Money! \nDo you want to play again?")) {
             resetAll();
@@ -70,18 +243,13 @@ function spin() {
     else if (playerBet > playerMoney) {
         alert("You don't have enough Money to place that bet.");
     }
-    else if (playerBet < 0) {
-        alert("All bets must be a positive $ amount.");
-    }
     else if (playerBet <= playerMoney) {
         spinResult = Reels();
         fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-        $("div#result>p").text(fruits);
         determineWinnings();
+        moneyText.text = "$" + playerMoney.toString();
+        jackpotText.text = "$" + jackpot.toString();
         turn++;
-    }
-    else {
-        alert("Please enter a valid bet amount");
     }
 }
 
@@ -107,6 +275,9 @@ function resetAll() {
     winNumber = 0;
     lossNumber = 0;
     winRatio = 0;
+    moneyText.text = "$" + playerMoney.toString();
+    jackpotText.text = "$" + jackpot.toString();
+    betText.text = "$" + playerBet.toString();
 }
 
 
@@ -252,31 +423,3 @@ function determineWinnings() {
     }
 
 }
-
-/* When the player clicks the spin button the game kicks off */
-$("#spinButton").click(function () {
-    playerBet = $("div#betEntry>input").val();
-
-    if (playerMoney == 0) {
-        if (confirm("You ran out of Money! \nDo you want to play again?")) {
-            resetAll();
-        }
-    }
-    else if (playerBet > playerMoney) {
-        alert("You don't have enough Money to place that bet.");
-    }
-    else if (playerBet < 0) {
-        alert("All bets must be a positive $ amount.");
-    }
-    else if (playerBet <= playerMoney) {
-        spinResult = Reels();
-        fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-        $("div#result>p").text(fruits);
-        determineWinnings();
-        turn++;
-    }
-    else {
-        alert("Please enter a valid bet amount");
-    }
-
-});
