@@ -76,6 +76,7 @@
     <Content Include="images\button300.png" />
     <Content Include="images\button400.png" />
     <Content Include="images\button500.png" />
+    <Content Include="images\clear.png" />
     <Content Include="images\Grape.png" />
     <Content Include="images\handle.png" />
     <Content Include="images\powerbutton.png" />
