@@ -15,6 +15,7 @@ var strawberry: createjs.Bitmap;
 var orange: createjs.Bitmap;
 var cherry: createjs.Bitmap;
 var bell: createjs.Bitmap;
+var slotReels: createjs.Container;
 var startSeven1;
 var startSeven2;
 var startSeven3;
@@ -22,13 +23,14 @@ var clear1;
 var clear2;
 var clear3;
 var blank: createjs.Bitmap;
+var winLossMessage: createjs.Text;
 var betText: createjs.Text;
 var moneyText: createjs.Text;
 var jackpotText: createjs.Text;
 
-var playerMoney = 1000;
+var playerMoney = 5000;
 var winnings = 0;
-var jackpot = 5000;
+var jackpot = 10000;
 var turn = 0;
 var playerBet = 0;
 var winNumber = 0;
@@ -83,7 +85,12 @@ function drawSlotMachine() {
     button300 = new createjs.Bitmap("images/button300.png");
     button400 = new createjs.Bitmap("images/button400.png");
     button500 = new createjs.Bitmap("images/button500.png");
+    slotReels = new createjs.Container();
+    
     stage.enableMouseOver();
+
+    slotReels.x = stage.x;
+    slotReels.y = stage.y;
 
     startSeven1.x = 40;
     startSeven1.y = 236;
@@ -168,6 +175,7 @@ function drawSlotMachine() {
     stage.addChild(button300);
     stage.addChild(button400);
     stage.addChild(button500);
+    stage.addChild(slotReels);
     threeSevens();
 
     addEventListeners(); 
@@ -177,20 +185,8 @@ function addEventListeners() {
     powerButton.addEventListener("click", function () {
         if (confirm("Are you sure you want to quit?")) {
             powerOff();
-            powerButton.removeAllEventListeners();
-            powerButton.addEventListener("click", addEventListeners);
-            powerButton.addEventListener("mouseover", function () {
-                powerButton.alpha = 0.5;
-            });
-            powerButton.addEventListener("mouseout", function () {
-                powerButton.alpha = 1;
-            });
         }
     });
-
-    betText.text = "$" + playerBet;
-    jackpotText.text = "$" + jackpot;
-    moneyText.text = "$" + playerMoney;
 
     powerButton.addEventListener("mouseover", function () {
         powerButton.alpha = 0.5;
@@ -276,17 +272,7 @@ function addEventListeners() {
 }
 
 function powerOff() {
-    resetAll();
-    betText.text = "";
-    jackpotText.text = "";
-    moneyText.text = "";
-    resetButton.removeAllEventListeners();
-    spinHandle.removeAllEventListeners();
-    button100.removeAllEventListeners();
-    button200.removeAllEventListeners();
-    button300.removeAllEventListeners();
-    button400.removeAllEventListeners();
-    button500.removeAllEventListeners();
+    window.close();
 }
 
 function spin() {
@@ -304,9 +290,9 @@ function spin() {
     }
     else if (playerBet <= playerMoney) {
 
-        clearReels();
-
         spinResult = Reels();
+
+        clearReels();
 
         spinResult[0].x = 40;
         spinResult[0].y = 236;
@@ -317,7 +303,7 @@ function spin() {
         spinResult[2].x = 306;
         spinResult[2].y = 236;
 
-        stage.addChild(spinResult[0], spinResult[1], spinResult[2]);
+        slotReels.addChild(spinResult[0], spinResult[1], spinResult[2]);
 
         determineWinnings();
         moneyText.text = "$" + playerMoney.toString();
@@ -327,11 +313,11 @@ function spin() {
 }
 
 function clearReels() {
-    stage.addChild(clear1, clear2, clear3);
+    slotReels.removeAllChildren();
 }
 
 function threeSevens() {
-    stage.addChild(startSeven1, startSeven2, startSeven3);
+    slotReels.addChild(startSeven1, startSeven2, startSeven3);
 }
 
 /* Utility function to reset all fruit tallies */
@@ -348,14 +334,15 @@ function resetFruitTally() {
 
 /* Utility function to reset the player stats */
 function resetAll() {
-    playerMoney = 1000;
+    playerMoney = 5000;
     winnings = 0;
-    jackpot = 5000;
+    jackpot = 10000;
     turn = 0;
     playerBet = 0;
     winNumber = 0;
     lossNumber = 0;
     winRatio = 0;
+    stage.removeChild(winLossMessage);
     moneyText.text = "$" + playerMoney.toString();
     jackpotText.text = "$" + jackpot.toString();
     betText.text = "$" + playerBet.toString();
@@ -372,7 +359,7 @@ function checkJackPot() {
     if (jackPotTry == jackPotWin) {
         alert("You Won the $" + jackpot + " Jackpot!!");
         playerMoney += jackpot;
-        jackpot = 1000;
+        jackpot = 10000;
     }
 }
 
@@ -381,6 +368,15 @@ function showWinMessage() {
     playerMoney += winnings;
     resetFruitTally();
     checkJackPot();
+
+    stage.removeChild(winLossMessage);
+
+    winLossMessage = new createjs.Text("You Win $" + winnings, "30px Arial", "black");
+
+    winLossMessage.x = 20;
+    winLossMessage.y = 417;
+
+    stage.addChild(winLossMessage);
 }
 
 /* Utility function to show a loss message and reduce player money */
@@ -388,6 +384,15 @@ function showLossMessage() {
     playerMoney -= playerBet;
     resetFruitTally();
     jackpot += playerBet;
+
+    stage.removeChild(winLossMessage);
+
+    winLossMessage = new createjs.Text("You lose", "30px Arial", "black");
+
+    winLossMessage.x = 20;
+    winLossMessage.y = 417;
+
+    stage.addChild(winLossMessage);
 }
 
 /* Utility function to check if a value falls within a range of bounds */
