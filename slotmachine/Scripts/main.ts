@@ -15,14 +15,11 @@ var strawberry: createjs.Bitmap;
 var orange: createjs.Bitmap;
 var cherry: createjs.Bitmap;
 var bell: createjs.Bitmap;
+var blank: createjs.Bitmap;
 var slotReels: createjs.Container;
 var startSeven1;
 var startSeven2;
 var startSeven3;
-var clear1;
-var clear2;
-var clear3;
-var blank: createjs.Bitmap;
 var winLossMessage: createjs.Text;
 var betText: createjs.Text;
 var moneyText: createjs.Text;
@@ -76,10 +73,7 @@ function drawSlotMachine() {
     spinHandle = new createjs.Bitmap("images/handle.png"); 
     startSeven1 = new createjs.Bitmap("images/7.png");
     startSeven2 = new createjs.Bitmap("images/7.png");
-    startSeven3 = new createjs.Bitmap("images/7.png");
-    clear1 = new createjs.Bitmap("images/clear.png");
-    clear2 = new createjs.Bitmap("images/clear.png");
-    clear3 = new createjs.Bitmap("images/clear.png");   
+    startSeven3 = new createjs.Bitmap("images/7.png");  
     button100 = new createjs.Bitmap("images/button100.png");
     button200 = new createjs.Bitmap("images/button200.png");
     button300 = new createjs.Bitmap("images/button300.png");
@@ -148,15 +142,6 @@ function drawSlotMachine() {
 
     spinHandle.x = 443;
     spinHandle.y = 62;
-
-    clear1.x = 40;
-    clear1.y = 236;
-
-    clear2.x = 174;
-    clear2.y = 236;
-
-    clear3.x = 306;
-    clear3.y = 236;
 
     stage.addChild(slotMachine);
     stage.addChild(spinHandle);
@@ -273,6 +258,7 @@ function addEventListeners() {
 
 function powerOff() {
     window.close();
+    window.location.href = 'thankyou.html';
 }
 
 function spin() {
