@@ -409,15 +409,15 @@ function Reels() {
                 grapes++;
                 break;
             case checkRange(outCome[spin], 38, 46): // 13.8% probability
-                betLine[spin] = strawberry = new createjs.Bitmap("images/Grape.png");
+                betLine[spin] = strawberry = new createjs.Bitmap("images/strawberry.png");
                 strawberries++;
                 break;
             case checkRange(outCome[spin], 47, 54): // 12.3% probability
-                betLine[spin] = orange = new createjs.Bitmap("images/Grape.png");
+                betLine[spin] = orange = new createjs.Bitmap("images/orange.png");
                 oranges++;
                 break;
             case checkRange(outCome[spin], 55, 59): //  7.7% probability
-                betLine[spin] = cherry = new createjs.Bitmap("images/Grape.png");
+                betLine[spin] = cherry = new createjs.Bitmap("images/cherries.png");
                 cherries++;
                 break;
             case checkRange(outCome[spin], 60, 62): //  4.6% probability
@@ -425,7 +425,7 @@ function Reels() {
                 bars++;
                 break;
             case checkRange(outCome[spin], 63, 64): //  3.1% probability
-                betLine[spin] = bell = new createjs.Bitmap("images/Grape.png");
+                betLine[spin] = bell = new createjs.Bitmap("images/bell.png");
                 bells++;
                 break;
             case checkRange(outCome[spin], 65, 65): //  1.5% probability
