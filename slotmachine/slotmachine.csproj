@@ -89,25 +89,33 @@
     <Content Include="images\textbox.png" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <None Include="Scripts\_references.js" />
-    <Content Include="Scripts\lib\easeljs-0.7.1.min.js" />
+    <None Include="scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="scripts\jquery-2.1.1.js" />
+    <Content Include="scripts\jquery-2.1.1.min.js" />
+    <None Include="scripts\_references.js" />
+    <Content Include="scripts\easeljs-0.7.1.min.js" />
+    <Content Include="scripts\preloadjs-0.4.1.min.js" />
+    <Content Include="scripts\soundjs-0.5.2.min.js" />
+    <Content Include="sounds\click.wav" />
+    <Content Include="sounds\jackpot.wav" />
+    <Content Include="sounds\spin.wav" />
+    <Content Include="sounds\win.wav" />
     <Content Include="thankyou.html" />
     <Content Include="Web.config" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\main.ts" />
-    <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\easeljs\easeljs.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\tweenjs\tweenjs.d.ts" />
+    <TypeScriptCompile Include="scripts\main.ts" />
+    <TypeScriptCompile Include="scripts\typings\createjs-lib\createjs-lib.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\easeljs\easeljs.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\preloadjs\preloadjs.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\soundjs\soundjs.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\tweenjs\tweenjs.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

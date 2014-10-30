@@ -1,4 +1,5 @@
 ﻿var stage: createjs.Stage;
+var queue;
 var spinHandle: createjs.Bitmap;
 var button100: createjs.Bitmap;
 var button200: createjs.Bitmap;
@@ -7,15 +8,6 @@ var button400: createjs.Bitmap;
 var button500: createjs.Bitmap;
 var powerButton: createjs.Bitmap;
 var resetButton: createjs.Bitmap;
-var clear: createjs.Bitmap;
-var seven: createjs.Bitmap;
-var bar: createjs.Bitmap;
-var grape: createjs.Bitmap;
-var strawberry: createjs.Bitmap;
-var orange: createjs.Bitmap;
-var cherry: createjs.Bitmap;
-var bell: createjs.Bitmap;
-var blank: createjs.Bitmap;
 var slotReels: createjs.Container;
 var startSeven1;
 var startSeven2;
@@ -45,8 +37,28 @@ var bells = 0;
 var sevens = 0;
 var blanks = 0;
 
+function preload() {
+    queue = new createjs.LoadQueue();
+    queue.installPlugin(createjs.Sound);
+    queue.addEventListener("complete", init);
+    queue.loadManifest([
+        { id: "background", src: "images/slotmachinebackground.jpg" },
+        { id: "textbox", src: "images/textbox.png" },
+        { id: "reset", src: "images/resetbutton.png" },
+        { id: "power", src: "images/powerbutton.png" },
+        { id: "handle", src: "images/handle.png" },
+        { id: "seven", src: "images/7.png" },
+        { id: "100", src: "images/button100.png" },
+        { id: "200", src: "images/button200.png" },
+        { id: "300", src: "images/button300.png" },
+        { id: "400", src: "images/button400.png" },
+        { id: "500", src: "images/button500.png" }
+    ]);
+}
+
 function init() {
     stage = new createjs.Stage(document.getElementById("canvas"));
+    stage.enableMouseOver();
 
     createjs.Ticker.setFPS(60);
     createjs.Ticker.addEventListener("tick", handleTick);
@@ -59,29 +71,27 @@ function handleTick() {
 }
 
 function drawSlotMachine() {
-    var slotMachine = new createjs.Bitmap("images/slotmachinebackground.jpg");
-    var betBox = new createjs.Bitmap("images/textbox.png");
-    var moneyBox = new createjs.Bitmap("images/textbox.png");
-    var jackpotBox = new createjs.Bitmap("images/textbox.png");
+    var slotMachine = new createjs.Bitmap(queue.getResult("background"));
+    var betBox = new createjs.Bitmap(queue.getResult("textbox"));
+    var moneyBox = new createjs.Bitmap(queue.getResult("textbox"));
+    var jackpotBox = new createjs.Bitmap(queue.getResult("textbox"));
     var textLabels = new createjs.Text("<-Money Jackpot->", "17px Arial", "#ffd900");
     var betLabel = new createjs.Text("Bet->", "17px Arial", "#ffd900");
     betText = new createjs.Text("$" + playerBet.toString(), "30px Arial", "#ffd900");
     moneyText = new createjs.Text("$" + playerMoney.toString(), "30px Arial", "#ffd900");
     jackpotText = new createjs.Text("$" + jackpot.toString(), "30px Arial", "#ffd900");
-    resetButton = new createjs.Bitmap("images/resetbutton.png");
-    powerButton = new createjs.Bitmap("images/powerbutton.png");
-    spinHandle = new createjs.Bitmap("images/handle.png"); 
-    startSeven1 = new createjs.Bitmap("images/7.png");
-    startSeven2 = new createjs.Bitmap("images/7.png");
-    startSeven3 = new createjs.Bitmap("images/7.png");  
-    button100 = new createjs.Bitmap("images/button100.png");
-    button200 = new createjs.Bitmap("images/button200.png");
-    button300 = new createjs.Bitmap("images/button300.png");
-    button400 = new createjs.Bitmap("images/button400.png");
-    button500 = new createjs.Bitmap("images/button500.png");
+    resetButton = new createjs.Bitmap(queue.getResult("reset"));
+    powerButton = new createjs.Bitmap(queue.getResult("power"));
+    spinHandle = new createjs.Bitmap(queue.getResult("handle")); 
+    startSeven1 = new createjs.Bitmap(queue.getResult("seven"));
+    startSeven2 = new createjs.Bitmap(queue.getResult("seven"));
+    startSeven3 = new createjs.Bitmap(queue.getResult("seven"));  
+    button100 = new createjs.Bitmap(queue.getResult("100"));
+    button200 = new createjs.Bitmap(queue.getResult("200"));
+    button300 = new createjs.Bitmap(queue.getResult("300"));
+    button400 = new createjs.Bitmap(queue.getResult("400"));
+    button500 = new createjs.Bitmap(queue.getResult("500"));
     slotReels = new createjs.Container();
-    
-    stage.enableMouseOver();
 
     slotReels.x = stage.x;
     slotReels.y = stage.y;
@@ -401,35 +411,35 @@ function Reels() {
         outCome[spin] = Math.floor((Math.random() * 65) + 1);
         switch (outCome[spin]) {
             case checkRange(outCome[spin], 1, 27):  // 41.5% probability
-                betLine[spin] = blank = new createjs.Bitmap("images/blank.png");
+                betLine[spin] = new createjs.Bitmap("images/blank.png");
                 blanks++;
                 break;
             case checkRange(outCome[spin], 28, 37): // 15.4% probability
-                betLine[spin] = grape = new createjs.Bitmap("images/Grape.png");
+                betLine[spin] = new createjs.Bitmap("images/Grape.png");
                 grapes++;
                 break;
             case checkRange(outCome[spin], 38, 46): // 13.8% probability
-                betLine[spin] = strawberry = new createjs.Bitmap("images/strawberry.png");
+                betLine[spin] = new createjs.Bitmap("images/strawberry.png");
                 strawberries++;
                 break;
             case checkRange(outCome[spin], 47, 54): // 12.3% probability
-                betLine[spin] = orange = new createjs.Bitmap("images/orange.png");
+                betLine[spin] = new createjs.Bitmap("images/orange.png");
                 oranges++;
                 break;
             case checkRange(outCome[spin], 55, 59): //  7.7% probability
-                betLine[spin] = cherry = new createjs.Bitmap("images/cherries.png");
+                betLine[spin] = new createjs.Bitmap("images/cherries.png");
                 cherries++;
                 break;
             case checkRange(outCome[spin], 60, 62): //  4.6% probability
-                betLine[spin] = bar = new createjs.Bitmap("images/bar.png");
+                betLine[spin] = new createjs.Bitmap("images/bar.png");
                 bars++;
                 break;
             case checkRange(outCome[spin], 63, 64): //  3.1% probability
-                betLine[spin] = bell = new createjs.Bitmap("images/bell.png");
+                betLine[spin] = new createjs.Bitmap("images/bell.png");
                 bells++;
                 break;
             case checkRange(outCome[spin], 65, 65): //  1.5% probability
-                betLine[spin] = seven = new createjs.Bitmap("images/7.png");
+                betLine[spin] = new createjs.Bitmap("images/7.png");
                 sevens++;
                 break;
         }
