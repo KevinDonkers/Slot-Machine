@@ -1,5 +1,16 @@
-﻿var stage: createjs.Stage;
+﻿/*
+ * File Name: main.ts
+ * Author: Kevin Donkers
+ * Last Modified By: Kevin Donkers
+ * Date Last Modified: Oct 30th, 2014
+ * Description: A slot machine game that can bet up to 500 and win jackpots
+ */
+
+//stage and queue
+var stage: createjs.Stage;
 var queue;
+
+//machine components
 var spinHandle: createjs.Bitmap;
 var button100: createjs.Bitmap;
 var button200: createjs.Bitmap;
@@ -17,6 +28,7 @@ var betText: createjs.Text;
 var moneyText: createjs.Text;
 var jackpotText: createjs.Text;
 
+//variables
 var playerMoney = 5000;
 var winnings = 0;
 var jackpot = 10000;
@@ -25,9 +37,6 @@ var playerBet = 0;
 var winNumber = 0;
 var lossNumber = 0;
 var spinResult;
-var fruits = "";
-var winRatio = 0;
-
 var grapes = 0;
 var strawberries = 0;
 var oranges = 0;
@@ -37,6 +46,7 @@ var bells = 0;
 var sevens = 0;
 var blanks = 0;
 
+//function to preload the images and sounds
 function preload() {
     queue = new createjs.LoadQueue();
     queue.installPlugin(createjs.Sound);
@@ -60,6 +70,7 @@ function preload() {
     ]);
 }
 
+//the init function that sets the stage and the game loop after the assests have been preloaded
 function init() {
     stage = new createjs.Stage(document.getElementById("canvas"));
     stage.enableMouseOver();
@@ -70,10 +81,12 @@ function init() {
     drawSlotMachine();
 }
 
+//updates the stage at 60FPS
 function handleTick() {
     stage.update();
 }
 
+//draws all the components of the slot machine
 function drawSlotMachine() {
     var slotMachine = new createjs.Bitmap(queue.getResult("background"));
     var betBox = new createjs.Bitmap(queue.getResult("textbox"));
@@ -180,6 +193,7 @@ function drawSlotMachine() {
     addEventListeners(); 
 }
 
+//adds all the button event handlers
 function addEventListeners() {
     powerButton.addEventListener("click", function () {
         createjs.Sound.play("click");
@@ -277,11 +291,13 @@ function addEventListeners() {
     });
 }
 
+//closes the window or redirects to a thank you page if the widnow close fails
 function powerOff() {
     window.close();
     window.location.href = 'thankyou.html';
 }
 
+//event handler for the spin button that kicks of the majority of the logic
 function spin() {
     createjs.Sound.play("spin");
     if (playerMoney == 0) {
@@ -319,10 +335,12 @@ function spin() {
     }
 }
 
+//clears the previous spin results
 function clearReels() {
     slotReels.removeAllChildren();
 }
 
+//displays 3 sevens on the reels
 function threeSevens() {
     slotReels.addChild(startSeven1, startSeven2, startSeven3);
 }
@@ -348,7 +366,6 @@ function resetAll() {
     playerBet = 0;
     winNumber = 0;
     lossNumber = 0;
-    winRatio = 0;
     stage.removeChild(winLossMessage);
     moneyText.text = "$" + playerMoney.toString();
     jackpotText.text = "$" + jackpot.toString();
