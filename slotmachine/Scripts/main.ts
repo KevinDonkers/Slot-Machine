@@ -52,7 +52,11 @@ function preload() {
         { id: "200", src: "images/button200.png" },
         { id: "300", src: "images/button300.png" },
         { id: "400", src: "images/button400.png" },
-        { id: "500", src: "images/button500.png" }
+        { id: "500", src: "images/button500.png" },
+        { id: "click", src: "sounds/click.wav" },
+        { id: "jackpot", src: "sounds/jackpot.wav" },
+        { id: "spin", src: "sounds/spin.wav" },
+        { id: "win", src: "sounds/win.wav" },
     ]);
 }
 
@@ -178,6 +182,7 @@ function drawSlotMachine() {
 
 function addEventListeners() {
     powerButton.addEventListener("click", function () {
+        createjs.Sound.play("click");
         if (confirm("Are you sure you want to quit?")) {
             powerOff();
         }
@@ -191,6 +196,7 @@ function addEventListeners() {
     });
 
     resetButton.addEventListener("click", function () {
+        createjs.Sound.play("click");
         if (confirm("Are you sure you want to reset?")) {
             resetAll();
         }
@@ -203,6 +209,7 @@ function addEventListeners() {
     });
 
     button100.addEventListener("click", function () {
+        createjs.Sound.play("click");
         playerBet = 100;
         betText.text = "$100";
     });
@@ -214,6 +221,7 @@ function addEventListeners() {
     });
 
     button200.addEventListener("click", function () {
+        createjs.Sound.play("click");
         playerBet = 200;
         betText.text = "$200";
     });
@@ -225,6 +233,7 @@ function addEventListeners() {
     });
 
     button300.addEventListener("click", function () {
+        createjs.Sound.play("click");
         playerBet = 300;
         betText.text = "$300";
     });
@@ -236,6 +245,7 @@ function addEventListeners() {
     });
 
     button400.addEventListener("click", function () {
+        createjs.Sound.play("click");
         playerBet = 400;
         betText.text = "$400";
     });
@@ -247,6 +257,7 @@ function addEventListeners() {
     });
 
     button500.addEventListener("click", function () {
+        createjs.Sound.play("click");
         playerBet = 500;
         betText.text = "$500";
     });
@@ -272,7 +283,7 @@ function powerOff() {
 }
 
 function spin() {
-
+    createjs.Sound.play("spin");
     if (playerMoney == 0) {
         if (confirm("You ran out of Money! \nDo you want to play again?")) {
             resetAll();
@@ -353,6 +364,7 @@ function checkJackPot() {
     var jackPotTry = Math.floor(Math.random() * 51 + 1);
     var jackPotWin = Math.floor(Math.random() * 51 + 1);
     if (jackPotTry == jackPotWin) {
+        createjs.Sound.play("jackpot");
         alert("You Won the $" + jackpot + " Jackpot!!");
         playerMoney += jackpot;
         jackpot = 10000;
@@ -361,6 +373,7 @@ function checkJackPot() {
 
 /* Utility function to show a win message and increase player money */
 function showWinMessage() {
+    createjs.Sound.play("win");
     playerMoney += winnings;
     resetFruitTally();
     checkJackPot();
